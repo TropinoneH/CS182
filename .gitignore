@@ -1,0 +1,6 @@
+dataset/audio_format (copy)
+dataset/mel_format
+dataset/mel_test
+.idea
+.vscode
+NeuralNetwork/model/model.h5
