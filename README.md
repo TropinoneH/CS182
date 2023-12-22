@@ -31,7 +31,7 @@
     # 7. 时域特征
     zero_crossing_rate = librosa.feature.zero_crossing_rate(y)
     ```
-    详细说明参见`./NerualNetwork/classifier.ipynb`最后一个单元格
+    详细说明参见`./NeuralNetwork/classifier.ipynb`最后一个单元格
 - [ ] 根据新的数据点更新模型，好像使用`model.fit`直接训练？不确定
 
     具体怎么做要试一下
