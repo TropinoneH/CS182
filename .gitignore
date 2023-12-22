@@ -1,6 +1,9 @@
 dataset/audio_format (copy)
-dataset/mel_format
+dataset/chr_format
+dataset/mfcc_format
 dataset/mel_test
+dataset/mel_format
+dataset/test_format
 .idea
 .vscode
-NeuralNetwork/model/model.h5
+model
