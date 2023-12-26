@@ -5,7 +5,7 @@
 - 模型的训练预测保存载入等基本操作（对于CNN）完成，可以照葫芦画瓢来写
 
 # 现在的任务
-- [ ] 考虑这些，看看能不能使用MLP全连接直接训练一个新的“弱”分类器，用boosting联合投票
+- [Di Feng] 考虑这些，看看能不能使用MLP全连接直接训练一个新的“弱”分类器，用boosting联合投票
     ```python
     # 1. 音高和旋律特征
     chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
