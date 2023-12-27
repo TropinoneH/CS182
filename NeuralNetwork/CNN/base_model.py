@@ -98,7 +98,7 @@ class CNN:
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 10) -> None:
         raise NotImplementedError("the train function doesn't implemented: ", self.__class__.__name__)
 
-    def predict(self, X: np.ndarray, duration: float) -> str:
+    def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         raise NotImplementedError("the predict function doesn't implemented: ", self.__class__.__name__)
 
     def update(self, X: np.ndarray, y: np.ndarray) -> None:

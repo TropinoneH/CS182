@@ -55,17 +55,18 @@ class CNN_CHR(CNN):
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 10) -> None:
         self._train_core(train_path, test_path, epoch, (12, 1293), 20, 50)
 
-    def predict(self, X: np.ndarray, duration: float) -> str:
+    def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
         for i in range(round(duration / 40)):
             start_pos = random.randint(0, X.shape[1] - 1293)
             pic = X[:, start_pos: start_pos + 1293].reshape((1, 12, 1293, 1))
             prediction = self.cnn.predict(pic)
-            predictions.append(prediction)
+            if np.max(prediction) > 0.3:
+                predictions.append(prediction)
 
         predictions = np.mean(predictions, axis=0)
         class_index = np.argmax(predictions, axis=1)[0]
-        return ["pop", "classical", "pop", "pop", "pop", "jazz", "rock", "pop", "pop", "rock"][class_index]
+        return ["pop", "classical", "pop", "pop", "pop", "jazz", "rock", "pop", "pop", "rock"][class_index], predictions
 
     def update(self, X: np.ndarray, y: np.ndarray) -> None:
         pass

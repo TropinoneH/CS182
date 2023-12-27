@@ -55,7 +55,7 @@ class CNN_MEL(CNN):
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 1) -> None:
         self._train_core(train_path, test_path, epoch, (128, 128), 20, 250)
 
-    def predict(self, X: np.ndarray, duration: float) -> str:
+    def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
         for i in range(round(duration / 10)):
             start_pos = random.randint(0, X.shape[1] - 128)
@@ -65,7 +65,7 @@ class CNN_MEL(CNN):
 
         predictions = np.mean(predictions, axis=0)
         class_index = np.argmax(predictions, axis=1)[0]
-        return ["pop", "classical", "pop", "pop", "pop", "jazz", "rock", "pop", "pop", "rock"][class_index]
+        return ["pop", "classical", "pop", "pop", "pop", "jazz", "rock", "pop", "pop", "rock"][class_index], predictions
 
     def update(self, X: np.ndarray, y: np.ndarray) -> None:
         pass
