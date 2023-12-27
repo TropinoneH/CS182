@@ -5,6 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/dataset/audio_format (copy)" />
       <excludeFolder url="file://$MODULE_DIR$/dataset/mel_format" />
       <excludeFolder url="file://$MODULE_DIR$/dataset/mel_test" />
+      <excludeFolder url="file://$MODULE_DIR$/dataset/chr_format" />
+      <excludeFolder url="file://$MODULE_DIR$/dataset/mfcc_format" />
+      <excludeFolder url="file://$MODULE_DIR$/dataset/test_format" />
     </content>
     <orderEntry type="jdk" jdkName="cs182" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
