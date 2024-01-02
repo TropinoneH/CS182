@@ -56,7 +56,7 @@ class CNN_MFCC(CNN):
 
     def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
-        for i in range(round(duration / 40)):
+        for i in range(round(duration / 30)):
             start_pos = random.randint(0, X.shape[1] - 1293)
             pic = X[:, start_pos: start_pos + 1293].reshape((1, 20, 1293, 1))
             prediction = self.cnn.predict(pic)

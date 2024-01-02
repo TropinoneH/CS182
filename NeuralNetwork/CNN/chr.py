@@ -24,9 +24,7 @@ class CNN_CHR(CNN):
         imageGenerator = keras.preprocessing.image.ImageDataGenerator
 
         self.cnn = keras.models.Sequential()
-        self.cnn.add(
-            conv(32, (3, 3), padding="same", activation="relu", input_shape=input_shape)
-        )
+        self.cnn.add(conv(32, (3, 3), padding="same", activation="relu", input_shape=input_shape))
         self.cnn.add(max_pool(pool_size=(2, 2)))
         self.cnn.add(conv(64, (3, 3), padding="same", activation="relu"))
         self.cnn.add(max_pool(pool_size=(2, 2)))
@@ -57,12 +55,11 @@ class CNN_CHR(CNN):
 
     def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
-        for i in range(round(duration / 40)):
+        for i in range(round(duration / 30)):
             start_pos = random.randint(0, X.shape[1] - 1293)
             pic = X[:, start_pos: start_pos + 1293].reshape((1, 12, 1293, 1))
             prediction = self.cnn.predict(pic)
-            if np.max(prediction) > 0.3:
-                predictions.append(prediction)
+            predictions.append(prediction)
 
         predictions = np.mean(predictions, axis=0)
         class_index = np.argmax(predictions, axis=1)[0]

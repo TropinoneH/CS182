@@ -24,9 +24,7 @@ class CNN_MEL(CNN):
         imageGenerator = keras.preprocessing.image.ImageDataGenerator
 
         self.cnn = keras.models.Sequential()
-        self.cnn.add(
-            conv(32, (3, 3), padding="same", activation="relu", input_shape=input_shape)
-        )
+        self.cnn.add(conv(32, (3, 3), padding="same", activation="relu", input_shape=input_shape))
         self.cnn.add(max_pool(pool_size=(2, 2)))
         self.cnn.add(conv(64, (3, 3), padding="same", activation="relu"))
         self.cnn.add(max_pool(pool_size=(2, 2)))
@@ -53,13 +51,13 @@ class CNN_MEL(CNN):
         print(self.cnn.summary())
 
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 1) -> None:
-        self._train_core(train_path, test_path, epoch, (128, 128), 20, 250)
+        self._train_core(train_path, test_path, epoch, (128, 1293), 20, 50)
 
     def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
-        for i in range(round(duration / 10)):
-            start_pos = random.randint(0, X.shape[1] - 128)
-            pic = X[:, start_pos: start_pos + 128].reshape((1, 128, 128, 1))
+        for i in range(round(duration / 30)):
+            start_pos = random.randint(0, X.shape[1] - 1293)
+            pic = X[:, start_pos: start_pos + 1293].reshape((1, 128, 1293, 1))
             prediction = self.cnn.predict(pic)
             predictions.append(prediction)
 
