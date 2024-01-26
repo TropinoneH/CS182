@@ -7,9 +7,10 @@ import numpy as np
 from tqdm import tqdm
 
 audio_dir = "dataset/audio_format"
-# mel_dir = "dataset/mel_format"
+mel_dir = "dataset/mel_format"
 mfcc_dir = "dataset/mfcc_format"
 chr_dir = "dataset/chr_format"
+merge_dir = "dataset/merge_format"
 for genre in tqdm(os.listdir(audio_dir), desc="genre"):
     all_files = sorted([files for files in os.listdir(os.path.join(audio_dir, genre)) if
                         not os.path.isdir(files) and files.endswith((".mp3", ".wav", ".WAV", ".MP3"))])
