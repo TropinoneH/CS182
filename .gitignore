@@ -6,6 +6,7 @@ dataset/mel_format
 dataset/mel2_format
 dataset/test_format
 dataset/merge_format
+dataset/fma_small
 .idea
 .vscode
 model
