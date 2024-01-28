@@ -45,19 +45,20 @@ class CNN_CHR(CNN):
             metrics=["acc"],
         )
 
-        self.train_datagen = imageGenerator(featurewise_center=True,featurewise_std_normalization=True,zca_whitening=True,rescale=1.0 / 255)
+        self.train_datagen = imageGenerator(featurewise_center=True, featurewise_std_normalization=True,
+                                            zca_whitening=True, rescale=1.0 / 255)
         self.test_datagen = imageGenerator(rescale=1.0 / 255)
 
         print(self.cnn.summary())
 
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 10) -> None:
-        self._train_core(train_path, test_path, epoch, (1293,12), 20, 50)
+        self._train_core(train_path, test_path, epoch, (1293, 12), 20, 50)
 
     def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []
         for i in range(round(duration / 30)):
             start_pos = random.randint(0, X.shape[1] - 1293)
-            pic = X[:, start_pos: start_pos + 1293].reshape((1, 1293, 12,  1))
+            pic = X[:, start_pos: start_pos + 1293].T.reshape((1, 1293, 12, 1))
             prediction = self.cnn.predict(pic)
             predictions.append(prediction)
 

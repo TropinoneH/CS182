@@ -1,7 +1,6 @@
 import os
 
 import keras
-import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -24,7 +23,6 @@ class CRNN:
         )
 
         print(self.cnn.summary())
-
 
     def init(self, input_shape: tuple):
         raise NotImplementedError("the init function doesn't implemented: ", self.__class__.__name__)
