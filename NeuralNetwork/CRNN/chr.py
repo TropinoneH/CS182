@@ -40,12 +40,10 @@ class CRNN_CHR(CRNN):
         self.cnn.add(dropout(0.5))
         self.cnn.add(dense(10, activation="softmax"))
 
-        self.train_datagen = imageGenerator(rescale=1.0 / 255)
+        self.train_datagen = imageGenerator(featurewise_center=True,featurewise_std_normalization=True,zca_whitening=True,rescale=1.0 / 255)
         self.test_datagen = imageGenerator(rescale=1.0 / 255)
-
-
     def train(self, train_path: str, test_path: str | None = None, epoch: int = 10) -> None:
-        self._train_core(train_path, test_path, epoch, (12, 1293), 20, 50)
+        self._train_core(train_path, test_path, epoch, (1293,12), 20, 50)
 
     def predict(self, X: np.ndarray, duration: float) -> [str, np.ndarray]:
         predictions = []

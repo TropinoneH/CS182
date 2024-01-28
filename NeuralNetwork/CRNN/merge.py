@@ -3,6 +3,8 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 
+# ??? what's this
+
 class CRNN_MERGE(CRNN):
     def __init__(self, input_shape: tuple):
         super().__init__(input_shape)

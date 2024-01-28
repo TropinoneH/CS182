@@ -86,16 +86,18 @@ class CombineModel:
         acc = history.history["acc"]
 
         epoch = range(epoch)
-
+        plt.figure(1)
         plt.plot(epoch, acc, "bo", label="Training accuracy")
-        plt.title("Training and Testing Accuracy")
-
-        plt.figure()
-
-        plt.plot(epoch, loss, "bo", label="Training Loss")
-        plt.title("Training and Testing Loss")
+        plt.title("Training Accuracy")
         plt.legend()
+        plt.savefig('./train_acc')
 
+
+        plt.figure(2)
+        plt.plot(epoch, loss, "bo", label="Training Loss")
+        plt.title("Training Loss")
+        plt.legend()
+        plt.savefig('./train_loss')
         plt.show()
 
 
