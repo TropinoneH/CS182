@@ -19,12 +19,15 @@ class TextDataGenerator:
             batch_features = []
             batch_labels = []
 
+            paths = []
+
             for _ in range(self.batch_size):
                 # 随机选择类别和文件
                 category = np.random.choice(self.categories)
                 category_dir = os.path.join(self.directory, category)
                 file_choice = np.random.choice(os.listdir(category_dir))
                 file_path = os.path.join(category_dir, file_choice)
+                paths.append(file_path)
 
                 # 读取文件内容
                 with open(file_path, 'r') as file:
@@ -35,7 +38,10 @@ class TextDataGenerator:
                 batch_labels.append(self.category_indices[category])
 
             # 将列表转换为 Numpy 数组
-            X = np.array(batch_features)
+            try:
+                X = np.array(batch_features)
+            except:
+                print(paths)
             y = to_categorical(batch_labels, num_classes=self.num_classes)
 
             yield X, y

@@ -50,7 +50,7 @@ class CRNN_MFCC(CRNN):
         predictions = []
         for i in range(round(duration / 30)):
             start_pos = random.randint(0, X.shape[1] - 1293)
-            pic = X[:, start_pos: start_pos + 1293].reshape((1, 1293, 20,  1))
+            pic = X[:, start_pos: start_pos + 1293].T.reshape((1, 1293, 20,  1))
             prediction = self.cnn.predict(pic)
             if np.max(prediction) > 0.3:
                 predictions.append(prediction)

@@ -50,7 +50,7 @@ class CRNN_MEL(CRNN):
         predictions = []
         for i in range(round(duration / 30)):
             start_pos = random.randint(0, X.shape[1] - 1293)
-            pic = X[:, start_pos: start_pos + 1293].reshape((1, 1293,128, 1))
+            pic = X[:, start_pos: start_pos + 1293].T.reshape((1, 1293, 128, 1))
             prediction = self.cnn.predict(pic)
             predictions.append(prediction)
 
