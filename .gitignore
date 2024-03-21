@@ -1,13 +1,3 @@
-dataset/audio_format (copy)
-dataset/chr_format
-dataset/mfcc_format
-dataset/mel_test
-dataset/mel_format
-dataset/mel2_format
-dataset/test_format
-dataset/merge_format
-dataset/fma_small
 .idea
 .vscode
 model
-dataset/test_long
