@@ -1,0 +1,185 @@
+%!TEX program = xelatex
+\documentclass[10pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{titlesec}
+\usepackage{xcolor}
+%\usepackage[shortlabels]{enumitem}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{listings}
+\usetikzlibrary{arrows}
+\usepackage{subfigure}
+\usepackage{graphicx,booktabs,multirow}
+\usepackage[a4paper]{geometry}
+\usepackage{upquote}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{amsthm}
+\usepackage{bbm}
+
+\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
+\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
+\lstset{language=Matlab}
+\lstset{breaklines}
+
+\input defs.tex
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\titleformat*{\section}{\centering\LARGE\scshape}
+\renewcommand{\thesection}{\Roman{section}}
+\lstset{language=Matlab,tabsize=4,frame=shadowbox,basicstyle=\footnotesize,
+keywordstyle=\color{blue!90}\bfseries,breaklines=true,commentstyle=\color[RGB]{50,50,50},stringstyle=\ttfamily,numbers=left,numberstyle=\tiny,
+  numberstyle={\color[RGB]{192,92,92}\tiny},backgroundcolor=\color[RGB]{245,245,244},inputpath=code}
+
+\begin{document}
+
+\date{}
+\title{Optimization and Machine Learning, Fall 2023 \\
+	Homework 5 \\
+	\small (Due Thursday, Jan 11 at 11:59pm (CST))}
+\maketitle
+\begin{enumerate}[1.]
+
+	\item \defpoints{10} [Deep Learning Model]
+	\begin{enumerate}
+		\item Consider a sequential 2D convolution block consist of 10 layers. Suppose the input size is 4 $\times$ 64 $\times$ 64 $\times$ (channel, width, height) and
+		we use 3 $\times$ 3 (width, height) Conv2D with 4 channels input and 4 channels output to convolve with it. Set stride = 1 and pad = 1. What is the output size? Let the bias for each kernel be a scalar, how many parameters do we have in the ? \defpoints{5}
+		\item The convolution layer is followed by a max pooling layer with 2 × 2 (width, height) filter and stride
+		= 2. What is the output size of the pooling layer? How many parameters do we have in the pooling
+		layer? \defpoints{5}
+	\end{enumerate} 
+	
+	\begin{enumerate}[(a)]
+		\item 
+		The output channel is $4$, so the output size is $4\times64\times64$
+
+		parameters: $10\times4\times(4\times3\times3+1)=1480$
+		\item 
+		$64\div2=32\Rightarrow$the output has $4\times32\times32$
+
+
+		and the pooling layer has no parameters.
+	\end{enumerate}
+	
+	\newpage
+
+
+	\item \defpoints{10} Use the $k$-means++ algorithm and Euclidean distance to cluster the 8 data points into $K=3$ clusters.
+		The coordinates of the data points are:
+		\begin{align*}
+			x^{(1)} & = (2,8),  \ x^{(2)} = (2,5), \ x^{(3)} = (1,2), \ x^{(4)} = (5,8), \\
+			x^{(5)} & = (7,3),  \ x^{(6)} = (6,4), \ x^{(7)} = (8,4), \ x^{(8)} = (4,7).
+		\end{align*}
+		Suppose that initially the first cluster centers is $x^{(1)}$. \\
+		{\color{blue} To ensure consistent results, please use random numbers in the order shown in the table below. When selecting a center, arrange it in ascending order of sequence number. For example, when the normalized weights of 5 nodes are 0.2, 0.1, 0.3, 0.3, and 0.1, if the random number is 0.3, the selected node is the third one. Note that you don't necessarily need to use all of them.\\
+		\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		0.6 & 0.2 & 0.5 & 0.9 & 0.3 \\
+		\hline
+		\end{tabular}
+		}
+		\begin{itemize}
+			\item[(a)] Perform the $k$-means++ algoptionorithm to initialize other centers and report the coordinates of the resulting centroids. ~\defpoints{3}
+			\item[(b)] Calculate the loss function
+				\begin{equation}
+					Q(r,c) = \frac{1}{n} \sum_{i=1}^n \sum_{j=1}^K r_{ij}||x^{(i)} - c_j||^2,
+				\end{equation}
+				where $r_{ij} = 1$ if $x^{(i)}$ belongs to the $j$-th cluster and 0 otherwise. ~\defpoints{2}
+			\item[(c)] How many more iterations are needed to converge? ~\defpoints{3} Calculate the loss after it converged.~\defpoints{2}
+		\end{itemize}
+		
+		\begin{enumerate}[(a)]
+			\item 
+			$$c_1=x_1$$
+			$$\Rightarrow\begin{tabular}{|c|c|c|c|c|c|c|c|}
+				\hline
+				$x_i$&$x_2$&$x_3$&$x_4$&$x_5$&$x_6$&$x_7$&$x_8$\\
+				\hline
+				$d^2(c_1,x_i)$&9&37&9&50&32&52&5 \\
+				\hline
+				\end{tabular}$$
+			$$\Rightarrow S=194\Rightarrow\begin{tabular}{|c|c|c|c|c|c|c|c|}
+				\hline
+				$d^2(c_1,x_i)$&$x_2$&$x_3$&$x_4$&$x_5$&$x_6$&$x_7$&$x_8$\\
+				\hline
+				p&0.046&0.191&0.046&0.258&0.165&0.268&0.026 \\
+				\hline
+				\end{tabular}$$
+			$$\mbox{random is }0.6\Rightarrow c_2=x^{(6)}$$
+			$$\Rightarrow\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+				$x_i$&$x_2$&$x_3$&$x_4$&$x_5$&$x_7$&$x_8$\\
+				\hline
+				$d^2(c_2,x_i)$&17&29&17&2&4&25 \\
+				\hline
+				\end{tabular}\Rightarrow\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+				$x_i$&$x_2$&$x_3$&$x_4$&$x_5$&$x_7$&$x_8$\\
+				\hline
+				$d^2_{\min}(x_i)$&9&29&9&2&4&5 \\
+				\hline
+				\end{tabular}$$
+			$$\mbox{random is }0.2\Rightarrow c_3=x^{(3)}$$
+			$$\Rightarrow c=\{x^{(1)},x^{(6)},x^{(3)}\}$$
+			\item 
+			from $(a)$: 
+			$$\begin{cases}
+				x^{(1)}:&x^{(2)},x^{(4)},x^{(8)}\\x^{(6)}:&x^{(5)},x^{(7)}\\x^{(3)}:
+			\end{cases}$$
+			$$\Rightarrow Q(r,c)=\frac{1}{8}\left(9+9+5+2+4\right)=\frac{29}{8}$$
+			\item 
+			$$means:\begin{cases}
+				c_1:&\left(\frac{13}{4},7\right)\\c_2:&\left(1,2\right)\\c_3:&\left(7,\frac{11}{3}\right)
+			\end{cases}$$
+			$$\Rightarrow\begin{cases}
+				x^{(1)}:x^{(2)},x^{(4)},x^{(8)}\\x^{(6)}:x^{(5)},x^{(7)}\\x^{(3)}:
+			\end{cases}$$
+			$$\Rightarrow Q(r,c)=1.93$$
+		\end{enumerate}
+
+		\newpage
+
+
+	\item \defpoints{10} Name 2 deep generation networks.~\defpoints{2} Briefly describe the training procedure of a GAN model.(What's the objective function? How to update the parameters in each stage?)~\defpoints{8}\\
+	\begin{enumerate}
+		\item 
+		CNN, RNN
+		\item 
+\textbf{Objective Functions}
+
+1. Discriminator (D) Objective: Distinguish between real data \( x \) and fake data generated by the Generator \( G(z) \).
+
+2. Generator (G) Objective: Generate data that mimics real data as closely as possible.
+
+\textbf{Training Stages}
+
+1. Training Discriminator (D):
+\begin{enumerate}[-]
+	\item Train \( D \) to output high probability \( D(x) \) for real data \( x \).
+	\item Train \( D \) to output low probability \( D(G(z)) \) for fake data \( G(z) \) from Generator.
+	\item Update \( D \)'s parameters using gradient descent.
+\end{enumerate}
+2. Training Generator (G):
+
+   - \( G \) generates data \( G(z) \), passed to \( D \).
+
+   - Goal of \( G \) is to make \( D \) classify \( G(z) \) as real.
+
+   - Update \( G \)'s parameters using gradient ascent based on \( D \)'s output.
+
+\textbf{Loss Functions}
+
+Discriminator's Loss: Binary cross-entropy, aiming to accurately classify real and fake data.
+
+Generator's Loss: Inversely related to the confidence of \( D \) in mistaking \( G(z) \) as real.
+
+Training involves alternating updates between \( G \) and \( D \) until equilibrium is reached.
+	\end{enumerate}
+
+\end{enumerate}
+\end{document}
